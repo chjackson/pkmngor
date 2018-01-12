@@ -1,0 +1,59 @@
+---
+title: "Extracting Pokemon data using R scripts"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Extracting Pokemon data using R scripts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteDepends{dplyr,pogor,DT}
+  \usepackage[utf8]{inputenc}
+---
+
+
+The data are supplied in a data frame, pkmn, with one row per currently-released Pokemon.
+
+TODO explain where I got the data from
+
+
+```{r}
+library(DT)
+library(pogor)
+datatable(pkmn, extensions='FixedColumns', options=list(fixedColumns=list(leftColumns=2), scrollX = TRUE))
+```
+
+We can also use the tidyverse tools to explore and extract the data with script commands
+```{r, message=FALSE, warning=FALSE}
+library(dplyr)
+```
+
+Explore attack probabilities.  Slakoth has the lowest, as we might expect from the idle creature.
+
+```{r}
+pkmn %>% select(pokemonId, encounter.attackProbability) %>% arrange(encounter.attackProbability) %>% head
+```
+
+What about the highest?  I know Tyranitar is pretty aggressive.  
+Oh I see, it's Vigoroth, the first evolution of Slakoth! 
+
+```{r}
+pkmn %>% select(pokemonId, encounter.attackProbability) %>% arrange(encounter.attackProbability) %>% tail(20)
+```
+
+Lowest capture rates 
+
+```{r}
+pkmn %>% select(pokemonId, encounter.baseCaptureRate) %>% arrange(encounter.baseCaptureRate) %>% head(20)
+```
+
+Highest capture rates
+```{r}
+pkmn %>% select(pokemonId, encounter.baseCaptureRate) %>% 
+  filter(!is.na(encounter.baseCaptureRate)) %>% arrange(encounter.baseCaptureRate) %>% tail(20)
+pkmn %>% filter(pokemonId == "SLAKOTH") %>% select(encounter.baseCaptureRate) # 0.4
+```
+
+Fury Cutter is a great fast move.  Which Pokemon can learn it? 
+
+```{r}
+pkmn %>% filter(quickMoves.V1 == "FURY_CUTTER_FAST" | quickMoves.V2 == "FURY_CUTTER_FAST") %>% select(pokemonId)
+```
