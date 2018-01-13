@@ -1,0 +1,38 @@
+---
+title: "Pokemon GO base stats visualisation"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+ %\VignetteIndexEntry{Pokemon GO base stats visualisation}
+ %\VignetteEngine{knitr::rmarkdown}
+ %\VignetteDepends{dplyr,pogor,plotly,ggplot2}
+ %\VignetteEncoding{UTF-8}
+---
+  
+```{r, message=FALSE, warning=FALSE}
+library(plotly)
+library(ggplot2)
+library(pogor)
+library(dplyr)
+type_ggcols = scale_color_manual(values=paste0("#",types$type_color))
+```
+
+# Plot base stats 
+
+```{r}
+p <- ggplot(pkmn, aes(x=stats.baseAttack, y=stats.baseDefPlusStam, text=pokemonId)) + 
+  geom_point(aes(col=type)) + type_ggcols
+p <- ggplotly(p, width=720, height=720)
+p
+```
+
+Flaws: 
+  some are on top of each other e.g. 
+Kyogre hidden under Groudon, as same stats. 
+Also Magikarp and Feebas
+
+Dual typing not shown. 
+Primary typing sometimes doesn't match typical use / moves, e.g. Lapras, Cloyster are water. 
+Could solve by plotting multiple points for each dual typed mon.
+
+Nice features - can highlight Pokemon of a particular type - try it out. 

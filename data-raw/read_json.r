@@ -1,11 +1,9 @@
-# "https://raw.githubusercontent.com/BrunnerLivio/pokemongo-game-master/master/versions/latest/GAME_MASTER.json"
-
 # Source this file to create the pkmn data frame from the downloaded json 
 
 library(jsonlite)
 library(tidyverse)
 
-gm <- fromJSON("data-raw/0.89.0/GAME_MASTER.json")  # flatten = TRUE ? 
+gm <- fromJSON("data-raw/current/GAME_MASTER.json")  # flatten = TRUE ? 
 timestampMs <- gm$timestampMs
 gm <- gm$itemTemplates
 pkmn <- gm$pokemonSettings

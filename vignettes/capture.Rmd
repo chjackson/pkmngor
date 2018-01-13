@@ -1,0 +1,27 @@
+
+
+# Visualise capture rate and flee rate 
+Jitter these on their 10 or so unique values 
+
+```{r}
+summary(pkmn$encounter.baseCaptureRate)
+table(pkmn$encounter.baseCaptureRate)
+summary(pkmn$encounter.baseFleeRate)
+table(pkmn$encounter.baseFleeRate)
+```
+
+```{r}
+p <- ggplot(pkmn, aes(x=encounter.baseCaptureRate, y=encounter.baseFleeRate, text=pokemonId)) + 
+  geom_jitter(aes(col=type), width=0.015, height=0.002) +
+  scale_y_continuous(breaks=unique(pkmn$encounter.baseFleeRate), limits=c(0,0.22)) + 
+  scale_x_continuous(breaks=sort(unique(pkmn$encounter.baseCaptureRate)), 
+                     labels=c("", "", 0.05, "", 0.1, "", 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.9)) + 
+  annotate(geom="text", x=0.5, y=0.22, label="Excluded ABRA: baseCaptureRate=0.5, baseFleeRate=0.9") + 
+  type_ggcols
+ggplotly(p, tooltip=c("text", "x", "y"), width=720, height=720)
+```
+
+TODO hard - red to green colour gradient as capture ring?
+  hjust is not passed to ggplotly. bug report? 
+  hard - don't jitter if only one point. 
+
