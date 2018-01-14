@@ -1,23 +1,21 @@
 # pkmngor
 
-Provides
+## For Pokémon GO trainers 
 
-* An R interface to the Pokémon GO GAME_MASTER data. 
+Interactive visualisations of selected data from the GAME_MASTER file.  Currently these include
 
-[Examples of exploring and extracting data](doc/explore.html)
+[Base stats for each Pokémon, by type](inst/doc/basestats.html)
 
-* Interactive visualisations of selected data from the GAME_MASTER file. 
-
-Currently the visualisations include
-
-[Base stats for each Pokémon, by type](doc/basestats.html)
-
-[Base capture and flee rates](doc/capture.html)
+[Base capture and flee rates](inst/doc/capture.html)
 
 The source code is provided as an example for developers interested in
 creating similar graphs.
 
 ## For developers
+
+Provides an R interface to the Pokémon GO GAME_MASTER data. 
+
+[Examples of exploring and extracting data](inst/doc/explore.html)
 
 To install the R package, run
 
@@ -26,8 +24,4 @@ library(devtools)
 install_github("chjackson/pkmngor")
 ```
 
-[Github repository for package sources] (https://chjackson.github.com/pkmngor)
-
-
-
-
+[Github repository for package sources](https://chjackson.github.com/pkmngor)
