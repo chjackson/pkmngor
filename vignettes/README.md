@@ -1,19 +1,20 @@
 # pogodatar
 
-This package has two aims
+Provides
 
-* Provides an R interface to the Pokemon GO GAME_MASTER data. 
+* An R interface to the Pokémon GO GAME_MASTER data. 
 
-* Presents a few interactive visualisations of selected data from the
-GAME_MASTER file. 
+[Examples of exploring and extracting data](explore.html)
+
+* Interactive visualisations of selected data from the GAME_MASTER file. 
 
 Currently the visualisations include
 
-[Base stats for each Pokemon, by type](basestats.html)
+[Base stats for each Pokémon, by type](basestats.html)
 
-
+[Base capture and flee rates](capture.html)
 
 The source code is provided as an example for developers interested in
-creating similar graphs
+creating similar graphs.
 
 

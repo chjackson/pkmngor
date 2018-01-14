@@ -1,27 +1,38 @@
+---
+title: "Pokemon GO base capture and flee rates"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    code_folding: hide
+vignette: >
+ %\VignetteIndexEntry{Pokemon GO base capture and flee rates}
+ %\VignetteEngine{knitr::rmarkdown}
+ %\VignetteDepends{dplyr,pogor,plotly,ggplot2}
+ %\VignetteEncoding{UTF-8}
+---
 
+Hover over the plot to identify the Pokémon.
 
-# Visualise capture rate and flee rate 
-Jitter these on their 10 or so unique values 
-
-```{r}
-summary(pkmn$encounter.baseCaptureRate)
-table(pkmn$encounter.baseCaptureRate)
-summary(pkmn$encounter.baseFleeRate)
-table(pkmn$encounter.baseFleeRate)
-```
-
-```{r}
-p <- ggplot(pkmn, aes(x=encounter.baseCaptureRate, y=encounter.baseFleeRate, text=pokemonId)) + 
-  geom_jitter(aes(col=type), width=0.015, height=0.002) +
-  scale_y_continuous(breaks=unique(pkmn$encounter.baseFleeRate), limits=c(0,0.22)) + 
-  scale_x_continuous(breaks=sort(unique(pkmn$encounter.baseCaptureRate)), 
-                     labels=c("", "", 0.05, "", 0.1, "", 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.7, 0.9)) + 
-  annotate(geom="text", x=0.5, y=0.22, label="Excluded ABRA: baseCaptureRate=0.5, baseFleeRate=0.9") + 
-  type_ggcols
+```{r, message=FALSE, warning=FALSE}
+library(plotly)
+library(ggplot2)
+library(pogor)
+library(dplyr)
+flee_vals <- sort(unique(pkmn$encounter.baseFleeRate))
+cap_vals <- sort(unique(pkmn$encounter.baseCaptureRate))
+cap_labs <- as.character(cap_vals)
+cap_labs[c(1,2,4,6)] <- ""
+p <- ggplot(pkmn, aes(x=encounter.baseCaptureRate, y=encounter.baseFleeRate, text=pokemonId)) +   geom_jitter(aes(col=type), width=0.015, height=0.002) +
+  scale_y_continuous(breaks=flee_vals, limits=c(0,0.22)) + 
+  scale_x_continuous(breaks=cap_vals, labels=cap_labs) + 
+  annotate(geom="text", x=0.5, y=0.005, label="Excluded ABRA: baseCaptureRate=0.5, baseFleeRate=0.9") + 
+  scale_color_manual(values=types$color)
 ggplotly(p, tooltip=c("text", "x", "y"), width=720, height=720)
 ```
 
-TODO hard - red to green colour gradient as capture ring?
-  hjust is not passed to ggplotly. bug report? 
-  hard - don't jitter if only one point. 
+The capture rate and flee rates only take a small number of unique values.  The plotted points are "jittered" around these values so they can all be seen.   (Would be nice to not jitter if there is only one point, but not sure how to achieve this in ggplot2)
 
+A nice idea for this plot might be to show the red to green color scale, as shown on the capture ring, but I don't know how the exact color shade corresponds to the actual capture rate. 
+
+Note the actual chance of capturing the Pokémon when you land a throw depends not only on the base capture rate of the species, but on the Pokémon level, the accuracy of the throw, and whether a curve ball or a berry is used.  See [Gamepress](https://pokemongo.gamepress.gg/catch-mechanics) for more info. 
+ 

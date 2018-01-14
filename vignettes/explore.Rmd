@@ -10,10 +10,7 @@ vignette: >
 ---
 
 
-The data are supplied in a data frame, pkmn, with one row per currently-released Pokemon.
-
-TODO explain where I got the data from
-
+The data are supplied in a data frame, `pkmn`, with one row per currently-released Pokémon. This is a decoded version of the GAME_MASTER file included in the game package, with a few columns added on the end. 
 
 ```{r}
 library(DT)
@@ -21,39 +18,57 @@ library(pogor)
 datatable(pkmn, extensions='FixedColumns', options=list(fixedColumns=list(leftColumns=2), scrollX = TRUE))
 ```
 
-We can also use the tidyverse tools to explore and extract the data with script commands
+We can use tools from the `dplyr` package to explore and extract subsets of the data in a "tidy" way.
+
 ```{r, message=FALSE, warning=FALSE}
 library(dplyr)
 ```
 
-Explore attack probabilities.  Slakoth has the lowest, as we might expect from the idle creature.
+For example, explore the chances that each Pokémon will attack at a certain point during the catch encounter.  Slakoth is among the lowest, as might be expected from the idle creature.
 
-```{r}
+```{r, warning=FALSE}
 pkmn %>% select(pokemonId, encounter.attackProbability) %>% arrange(encounter.attackProbability) %>% head
 ```
 
-What about the highest?  I know Tyranitar is pretty aggressive.  
-Oh I see, it's Vigoroth, the first evolution of Slakoth! 
+But what about the highest?  I knew Tyranitar was pretty aggressive.  But I was surprised to see it was Vigoroth, the first evolution of Slakoth. I look forward to encountering one of these in the wild!
 
 ```{r}
-pkmn %>% select(pokemonId, encounter.attackProbability) %>% arrange(encounter.attackProbability) %>% tail(20)
+pkmn %>% select(pokemonId, encounter.attackProbability) %>% arrange(desc(encounter.attackProbability)) %>% head
 ```
 
-Lowest capture rates 
+There are ten variables in this data file that appear to govern how Pokémon behave during the encounter.  [The Silph Road](https://thesilphroad.com/science/wild-pokemon-encounter-mechanics/) have studied some of these in detail. 
+
+```{r}
+#[15] "encounter.movementType"              
+#[16] "encounter.movementTimerS"            
+#[17] "encounter.jumpTimeS"                 
+#[18] "encounter.attackTimerS"              
+#[19] "encounter.attackProbability"         
+#[20] "encounter.dodgeProbability"          
+#[21] "encounter.dodgeDurationS"            
+#[22] "encounter.dodgeDistance"             
+#[24] "encounter.minPokemonActionFrequencyS"
+#[25] "encounter.maxPokemonActionFrequencyS"
+```
+
+What about the lowest base capture rates? 
 
 ```{r}
 pkmn %>% select(pokemonId, encounter.baseCaptureRate) %>% arrange(encounter.baseCaptureRate) %>% head(20)
 ```
 
-Highest capture rates
+Or the highest base capture rates? 
 ```{r}
 pkmn %>% select(pokemonId, encounter.baseCaptureRate) %>% 
-  filter(!is.na(encounter.baseCaptureRate)) %>% arrange(encounter.baseCaptureRate) %>% tail(20)
+  filter(!is.na(encounter.baseCaptureRate)) %>% arrange(desc(encounter.baseCaptureRate)) %>% head(20)
+```
+
+Find the base capture rate for a particular Pokémon.  Surprised Slakoth isn't higher - I'll be surprised the first time I see it jumping out of a Pokéball.
+```{r}
 pkmn %>% filter(pokemonId == "SLAKOTH") %>% select(encounter.baseCaptureRate) # 0.4
 ```
 
-Fury Cutter is a great fast move.  Which Pokemon can learn it? 
-
+Fury Cutter is a great fast move.  Which Pokémon can learn it? 
 ```{r}
 pkmn %>% filter(quickMoves.V1 == "FURY_CUTTER_FAST" | quickMoves.V2 == "FURY_CUTTER_FAST") %>% select(pokemonId)
 ```

@@ -22,6 +22,7 @@ pkmn <- do.call("cbind", pkmn) %>%
   as.tbl %>% 
   filter(!is.na(pokemonId)) %>%
   mutate(stats.baseDefPlusStam = stats.baseDefense + stats.baseStamina,
+         stats.baseSqrtDefTimesStam = sqrt(stats.baseDefense*stats.baseStamina),
          type = sub("POKEMON_TYPE_" , "", type),
          type2 = sub("POKEMON_TYPE_" , "", type2)) 
 
@@ -32,7 +33,9 @@ types <- c("GRASS"="78C850", "FIRE"="F08030", "WATER"="6890F0", "BUG"="A8B820", 
            "DRAGON"="7038F8", "DARK"="705848", "STEEL"="B8B8D0", "FLYING"="A890F0")
 # from https://bulbapedia.bulbagarden.net/wiki/Category:Type_color_templates
 # there are also dark and light versions of colours
-types <- data.frame(type=names(types), type_color=types, stringsAsFactors = FALSE)
+types <- data.frame(type = names(types), 
+                    color = paste0("#", types), 
+                    stringsAsFactors = FALSE)
 
 pkmn <- pkmn %>% right_join(types)
 

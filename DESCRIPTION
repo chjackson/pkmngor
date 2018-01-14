@@ -4,9 +4,13 @@ Version: 0.0.0.9000
 Authors@R: person("Christopher", "Jackson", email = "chris@fluffhouse.org.uk", role = c("aut", "cre"))
 Description: Provides the Pokemon GO GAME_MASTER data file as an R data frame, and presents interactive visualisations of the data
 Depends: R (>= 3.4.3)
-Suggests: dplyr, ggplot2, datatables, plotly
+Suggests: dplyr, ggplot2, DT, plotly,
+    knitr,
+    rmarkdown
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 URL: http://github.com/chjackson/pogor
 BugReports: https://github.com/chjackson/pogor/issues
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
