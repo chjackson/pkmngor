@@ -25,3 +25,7 @@ install_github("chjackson/pkmngor")
 ```
 
 [Github repository for package sources](https://github.com/chjackson/pkmngor)
+
+*** 
+
+*Chris Jackson [https://github.com/chjackson](https://github.com/chjackson)*
