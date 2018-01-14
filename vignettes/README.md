@@ -17,4 +17,17 @@ Currently the visualisations include
 The source code is provided as an example for developers interested in
 creating similar graphs.
 
+## For developers
+
+To install the R package, run
+
+```{r}
+library(devtools)
+install_github("chjackson/pkmngor")
+```
+
+[Github repository for package sources] (https://chjackson.github.com/pkmngor)
+
+
+
 
