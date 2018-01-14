@@ -24,4 +24,4 @@ library(devtools)
 install_github("chjackson/pkmngor")
 ```
 
-[Github repository for package sources](https://chjackson.github.com/pkmngor)
+[Github repository for package sources](https://github.com/chjackson/pkmngor)
