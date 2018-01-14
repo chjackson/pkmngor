@@ -1,0 +1,43 @@
+---
+title: "Pokémon GO base stats visualisation"
+date: "`r Sys.Date()`"
+output: 
+  html_document: 
+    code_folding: hide
+vignette: >
+ %\VignetteIndexEntry{Pokémon GO base stats visualisation}
+ %\VignetteEngine{knitr::rmarkdown}
+ %\VignetteDepends{dplyr,pkmngor,plotly,ggplot2}
+ %\VignetteEncoding{UTF-8}
+---
+
+Hover over the plot to identify the Pokémon.
+  
+```{r, message=FALSE, warning=FALSE}
+library(plotly)
+library(ggplot2)
+library(pkmngor)
+p <- ggplot(pkmn, aes(x=stats.baseAttack, y=stats.baseSqrtDefTimesStam, text=pokemonId)) + 
+  geom_point(aes(col=type)) + 
+  xlab("Base attack stat") + 
+  ylab("Defensive bulk") +
+  scale_color_manual(values=types$color) 
+p <- ggplotly(p, width=720, height=720)
+p
+```
+
+To just show Pokémon of a particular type, e.g. Ice, double-click on the name of the type to the right of the graph. Double-click again on the same type to remove the restriction.  Or 
+single-click on another type to add that type to the currently-selected points.  
+
+The y-axis, labelled "Defensive bulk", is calculated as the square root of (Base defense stat * Base stamina stat). This is what goes into the formula that determines the CP of an individual Pokémon, for more details see [Gamepress](https://pokemongo.gamepress.gg/pokemon-stats-advanced).
+
+## Current flaws in the graph 
+
+Some Pokémon are hidden under other Pokémon with identical stats: e.g. Kyogre is hidden under Groudon, and Magikarp is hidden under Feebas. 
+
+Only the primary type of each Pokémon is shown, and sometimes this does not match its typical usage / moves, e.g. Lapras and Cloyster are shown as Water instead of Ice type. This could be solved to some extent by plotting multiple points for each dual-typed Pokémon, then selecting only Ice types would show the points for Lapras and Cloyster. 
+
+
+## Pokémon strength 
+
+This graph doesn't tell the whole story.  The relative strength of different Pokémon species also depends on the moves that are available for them to learn.  For example, Slaking has the second highest attack stat of all species in Gen 1-3, but it is restricted by having a trivial fast move that does no damage.   Also the relative *usefulness* of Pokemon species depends on what opponents they will be expected to attack (or defend against).
