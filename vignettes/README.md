@@ -4,9 +4,9 @@
 
 Interactive visualisations of selected data from the GAME_MASTER file.  Currently these include
 
-[Base stats for each Pokémon, by type](inst/doc/basestats.html)
+[Base stats for each Pokémon, by type](https://chjackson.github.io/pkmngor/inst/doc/basestats.html)
 
-[Base capture and flee rates](inst/doc/capture.html)
+[Base capture and flee rates](https://chjackson.github.io/pkmngor/inst/doc/capture.html)
 
 The source code is provided as an example for developers interested in
 creating similar graphs.
@@ -15,7 +15,7 @@ creating similar graphs.
 
 Provides an R interface to the Pokémon GO GAME_MASTER data. 
 
-[Examples of exploring and extracting data](inst/doc/explore.html)
+[Examples of exploring and extracting data](https://chjackson.github.io/pkmngor/inst/doc/explore.html)
 
 To install the R package, run
 
