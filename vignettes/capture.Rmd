@@ -7,7 +7,7 @@ output:
 vignette: >
  %\VignetteIndexEntry{Pokemon GO base capture and flee rates}
  %\VignetteEngine{knitr::rmarkdown}
- %\VignetteDepends{dplyr,pogor,plotly,ggplot2}
+ %\VignetteDepends{dplyr,pkmngor,plotly,ggplot2}
  %\VignetteEncoding{UTF-8}
 ---
 
@@ -16,7 +16,7 @@ Hover over the plot to identify the Pokémon.
 ```{r, message=FALSE, warning=FALSE}
 library(plotly)
 library(ggplot2)
-library(pogor)
+library(pkmngor)
 library(dplyr)
 flee_vals <- sort(unique(pkmn$encounter.baseFleeRate))
 cap_vals <- sort(unique(pkmn$encounter.baseCaptureRate))

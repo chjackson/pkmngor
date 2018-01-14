@@ -5,7 +5,7 @@ output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Extracting Pokemon data using R scripts}
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteDepends{dplyr,pogor,DT}
+  %\VignetteDepends{dplyr,pkmngor,DT}
   \usepackage[utf8]{inputenc}
 ---
 
@@ -14,7 +14,7 @@ The data are supplied in a data frame, `pkmn`, with one row per currently-releas
 
 ```{r}
 library(DT)
-library(pogor)
+library(pkmngor)
 datatable(pkmn, extensions='FixedColumns', options=list(fixedColumns=list(leftColumns=2), scrollX = TRUE))
 ```
 

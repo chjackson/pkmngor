@@ -1,1 +1,1 @@
-/Users/chris/Dropbox/pokemon/pogor/vignettes/README.md
+vignettes/README.md

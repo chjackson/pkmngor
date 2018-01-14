@@ -1,4 +1,4 @@
-Package: pogor
+Package: pkmngor
 Title: Pokemon GO GAME_MASTER Data and Visualisations
 Version: 0.0.0.9000
 Authors@R: person("Christopher", "Jackson", email = "chris@fluffhouse.org.uk", role = c("aut", "cre"))
@@ -10,7 +10,7 @@ Suggests: dplyr, ggplot2, DT, plotly,
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-URL: http://github.com/chjackson/pogor
-BugReports: https://github.com/chjackson/pogor/issues
+URL: http://github.com/chjackson/pkmngor
+BugReports: https://github.com/chjackson/pkmngor/issues
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
