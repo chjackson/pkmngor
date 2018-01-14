@@ -42,11 +42,12 @@ pkmn <- pkmn %>%
   mutate(type = factor(type, levels=types$type)) # types in pokedex order
 
 ## add Pokedex ids, from https://github.com/veekun/pokedex/blob/master/pokedex/data/csv/pokemon.csv
-pokedex <- read.csv("data-raw/pokemon.csv", as.is=TRUE) %>% 
-  mutate(identifier = toupper(identifier)) %>% 
-  select(id, pokemonId = identifier) 
-
-pkmn <- pkmn %>% inner_join(pokedex) %>% arrange(id)
+#pokedex <- read.csv("data-raw/pokemon.csv", as.is=TRUE) %>% 
+#  mutate(identifier = toupper(identifier)) %>% 
+#  select(id, pokemonId = identifier)
+# don't bother with this, as some names don't match. 
+# pkmn <- pkmn %>% inner_join(pokedex) %>% arrange(id)
+# Seems row numbers naturally match pokedex IDs, as all included, even unreleased ones.
 
 save(pkmn, file="data/pkmn.rda")
 save(types, file="data/types.rda")

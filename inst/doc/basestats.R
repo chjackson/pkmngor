@@ -7,6 +7,6 @@ p <- ggplot(pkmn, aes(x=stats.baseAttack, y=stats.baseSqrtDefTimesStam, text=pok
   xlab("Base attack stat") + 
   ylab("Defensive bulk") +
   scale_color_manual(values=types$color) 
-p <- ggplotly(p, width=720, height=720)
+p <- ggplotly(p, width=720, height=720, tooltip=c("text","x","y"))
 p
 
